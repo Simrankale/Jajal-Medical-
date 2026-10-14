@@ -1,0 +1,179 @@
+{
+  "info": {
+    "name": "Jajal Medical Case Management API",
+    "_postman_id": "jajal-medical-v1",
+    "description": "API collection for Jajal Medical Case Management assignment with Bearer Token authentication and full CRUD endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Login (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"simran.kale@jajalmedical.com\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "login"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Login (Viewer - Anjali Rathord)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"anjali.rathord@jajalmedical.com\",\n  \"password\": \"viewer123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "login"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Logout",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/logout",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "logout"]
+        }
+      }
+    },
+    {
+      "name": "Cases - List (Paginated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cases?page=1&per_page=10&status=All&search=",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cases"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "per_page", "value": "10" },
+            { "key": "status", "value": "All" },
+            { "key": "search", "value": "" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cases - Create (Admin - Dr. Simran Sanket Kale)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"case_number\": \"CASE-0099\",\n  \"patient_reference\": \"PT-5512-SK\",\n  \"surgeon_name\": \"Dr. Simran Sanket Kale\",\n  \"implant_type\": \"Ceramic Femoral Head 36mm\",\n  \"status\": \"Planning\",\n  \"priority\": \"High\",\n  \"surgery_date\": \"2026-11-25\",\n  \"hospital\": \"St. Jude Regional Hospital\",\n  \"notes\": \"Biolox delta ceramic bearing component.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cases",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cases"]
+        }
+      }
+    },
+    {
+      "name": "Cases - Get Single Case",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cases/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cases", "1"]
+        }
+      }
+    },
+    {
+      "name": "Cases - Update Case",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"case_number\": \"CASE-0001\",\n  \"patient_reference\": \"PT-9812-OR\",\n  \"surgeon_name\": \"Dr. Sarah Al-Mansoor\",\n  \"implant_type\": \"Titanium Acetabular Hip Cup 54mm\",\n  \"status\": \"Approved\",\n  \"priority\": \"High\",\n  \"surgery_date\": \"2026-10-24\",\n  \"hospital\": \"St. Jude Regional Orthopedic Center\",\n  \"notes\": \"Updated surgical plan confirmed with lead radiologist.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cases/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cases", "1"]
+        }
+      }
+    },
+    {
+      "name": "Cases - Delete Case (Admin Only)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cases/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cases", "1"]
+        }
+      }
+    },
+    {
+      "name": "Dashboard Stats",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "stats"]
+        }
+      }
+    },
+    {
+      "name": "Bonus - Public Holidays (Nager.Date)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/holidays?country=US&year=2026",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "holidays"],
+          "query": [
+            { "key": "country", "value": "US" },
+            { "key": "year", "value": "2026" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "sanctum_token_admin_demo_secret_2026" }
+  ]
+}
